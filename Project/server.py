@@ -1,32 +1,3 @@
-# from socket import *
-# serverPort = 12005
-# serverSocket = socket(AF_INET,SOCK_STREAM)
-# serverSocket.bind(('127.0.0.1',serverPort))
-# serverSocket.listen(1)
-# print 'The server is ready to receive'
-# while 1:
-# 		connectionSocket, addr = serverSocket.accept()
-# 		message = connectionSocket.recv(1024*5)
-# 		print message
-# 		temp = list(message.split())
-# 		try:
-# 			name=temp[1][1:]
-# 			f = open(name)
-# 			contents = f.read()
-# 			connectionSocket.send('HTTP/1.1 200 OK\r\n')
-# 			connectionSocket.send('Content-Type: text/html\r\n')
-# 			connectionSocket.send('\r\n')
-# 			connectionSocket.send(contents)
-# 			connectionSocket.close()
-# 		except:
-# 			f = open("test.html")
-# 			contents = f.read()
-# 			connectionSocket.send('HTTP/1.1 404 Not Found\r\n')
-# 			connectionSocket.send('Content-Type: text/html\r\n')
-# 			connectionSocket.send('\r\n')
-# 			connectionSocket.send(contents)
-# 			connectionSocket.close()
-
 import tkinter as tk
 from functools import partial
 import socket
