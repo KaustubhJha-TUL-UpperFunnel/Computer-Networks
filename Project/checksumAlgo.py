@@ -35,6 +35,11 @@ def checkSumServerSideImplementation(checksum,string):
     sumOfBnos = '0b0'
     for i in sixteenBitArr:
         sumOfBnos = bin(int(sumOfBnos[2:],2) + int(i[2:],2))
+        
+    while(len(sumOfBnos)!=18):
+        sumOfBnos = bin(int(sumOfBnos[3:],2) + int(1,2))
+    
+    
     sumOfBnos += checksum
     
     for i in sumOfBnos[2:]:
