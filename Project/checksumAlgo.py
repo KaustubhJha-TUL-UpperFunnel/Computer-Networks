@@ -1,5 +1,5 @@
 import math
-
+import hashlib
 
 def add_binary_nums(x, y):
     max_len = max(len(x), len(y))
@@ -98,43 +98,53 @@ def checkSumServerSideImplementation(checksum,string):
     
 
     
-# def checkSumMD5():
-#     # File to check
-#     file_name = 'filename.exe'
+def md5ClientSide(data):
+    temp = hashlib.md5(data.encode())
+    return temp
 
-#     # Correct original md5 goes hereṇ
-#     original_md5 = '5d41402abc4b2a76b9719d911017c592'  
+def md5ServerSide(hash,data):
+    temp = hashlib.md5(data.encode())
+    return hash == temp
 
-#     # Open,close, read file and calculate MD5 on its contents 
-#     with open(file_name) as file_to_check:
-#         # read contents of the file
-#         data = file_to_check.read()    
-#         # pipe contents of the file through
-#         md5_returned = hashlib.md5(data).hexdigest()
-#     # Finally compare original MD5 with freshly calculated
-#     if original_md5 == md5_returned:
-#         print "MD5 verified."
-#     else:
-#         print "MD5 verification failed!."
+def checkSumClientSideHARDCODEDERRORImplementation(string):
+    sixteenBitArr = []
+    binString = ''.join(format(ord(x),'b') for x in string)
+    adtZero = math.ceil(len(binString)/16)* 16 - len(binString)
+    appZero = '0'*adtZero
+    binString = appZero + binString
+    print(binString,len(binString))
+    for i in range(0,len(binString),16):
+        sixteenBitArr.append(binString[i:i+16])
+    sixteenBitArr = map(lambda string:'0b'+string ,sixteenBitArr)
+       
+    sumOfBnos = '0b0'
+    for i in sixteenBitArr:
+         sumOfBnos = bin(int(sumOfBnos[2:], 2) + int(i[2:], 2))
 
-    
-# def checkSumMD5():
-#     # File to check
-#     file_name = 'filename.exe'
+    if(len(sumOfBnos[2:])<16):
+        sumOfBnos = '0b' + str(0*(16 - len(sumOfBnos[2:]))) + sumOfBnos[2:]
 
-#     # Correct original md5 goes hereṇ
-#     original_md5 = '5d41402abc4b2a76b9719d911017c592'  
+    print(sumOfBnos,2)
 
-#     # Open,close, read file and calculate MD5 on its contents 
-#     with open(file_name) as file_to_check:
-#         # read contents of the file
-#         data = file_to_check.read()    
-#         # pipe contents of the file through
-#         md5_returned = hashlib.md5(data).hexdigest()
-#     # Finally compare original MD5 with freshly calculated
-#     if original_md5 == md5_returned:
-#         print "MD5 verified."
-#     else:
-#         print "MD5 verification failed!."
+    temp = sumOfBnos[2:]
+    if(len(sumOfBnos[2:])>=17):
+        while(len(temp)!= 16):
+            temp = add_binary_nums(temp[1:],'0000000000000001')
+            #print(sumOfBnos,type(sumOfBnos))
+        #sumOfBnos = sumOfBnos[3:]
+
+    comp = ""
+    for i in temp:
+        if(i=='1'):
+            comp = comp+'0'
+        else:
+            comp+='1'
+
+    comp = add_binary_nums(comp,'0000000000000001')
+
+    return comp
 
 
+
+k = checkSumClientSideImplementation('applekdsjhfahdfahfhahfldah')
+checkSumServerSideImplementation(k,'applekdsjhfahdfahfhahfldah')
